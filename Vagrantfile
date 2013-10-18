@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
     config.vm.box = "precise32"
-    config.vm.synced_folder "../src", "/src", create: true, owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=777,fmode=666']
+    config.vm.synced_folder "src/", "/home/vagrant/src/", create: true, owner: 'vagrant', group: 'vagrant', mount_options: ['dmode=777,fmode=666']
     config.vm.network "forwarded_port", guest: 8080, host: 80
 
     config.vm.provision :fabric do |fabric|
