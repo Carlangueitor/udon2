@@ -1,1 +1,2 @@
 django
+Pillow==2.0.0
