@@ -16,7 +16,7 @@ def _setup_ubuntu():
     """
     Update packages and install basic packages.
     """
-    sudo('apt-get update')
+    sudo('apt-get update', quiet=True)
     cuisine.package_ensure('build-essential')
     cuisine.package_ensure('git-core')
 
@@ -26,6 +26,10 @@ def _setup_python():
     Install Python and Python related tools.
     """
     cuisine.package_ensure('python')
+    cuisine.package_ensure('python-setuptools')
+    sudo('easy_install pip', quiet=True)
+    sudo('pip install -r /home/vagrant/src/requirements/development.txt',
+         quiet=True)
 
 
 def _extra_packages():
