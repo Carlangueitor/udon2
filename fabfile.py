@@ -22,4 +22,4 @@ def runserver():
     """
     require('site_dir')
     with cd(env.site_dir):
-        run("python manage.py --traceback runserver_plus 0.0.0.0:8080")
+        run("python manage.py runserver_plus 0.0.0.0:8080 --traceback")

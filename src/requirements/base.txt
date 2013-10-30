@@ -1,2 +1,4 @@
 django
 Pillow==2.0.0
+Werkzeug
+django-extensions
