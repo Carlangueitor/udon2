@@ -14,7 +14,27 @@ def vagrant():
     env.site_dir = "~/src"
 
 
+@task
+def bootstrap():
+    """
+    Bootstrap Environment.
+    """
+    run("createdb udon")
+    _syncdb()
+
+
 # manage.py tasks
+
+@task
+def _syncdb():
+    """
+    Run syncdb command.
+    """
+    require('site_dir')
+    with cd(env.site_dir):
+        run("python manage.py syncdb")
+
+
 @task
 def runserver():
     """
@@ -22,4 +42,4 @@ def runserver():
     """
     require('site_dir')
     with cd(env.site_dir):
-        run("python manage.py runserver_plus 0.0.0.0:8080 --traceback")
+        run("python manage.py runserver_plus 0.0.0.0:8000 --traceback")

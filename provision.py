@@ -1,4 +1,4 @@
-from fabric.api import sudo
+from fabric.api import sudo, run
 from fabric.colors import blue
 
 import cuisine
@@ -9,6 +9,7 @@ cuisine.select_package("apt")
 
 def provide():
     _setup_ubuntu()
+    _setup_postgres()
     _setup_python()
     _extra_packages()
 
@@ -42,6 +43,22 @@ def _setup_python():
     print blue("Installing python requirements.")
     sudo('pip install -r /home/vagrant/src/requirements/development.txt',
          quiet=True)
+
+
+def _setup_postgres():
+    """
+    Install PostgreSQL and setup the database.
+    """
+    print blue("Setup PostgreSQL")
+    cuisine.sudo('echo "deb http://apt.postgresql.org/pub/repos/apt/ wheezy-pgdg main" > /etc/apt/sources.list.d/pgdg.list')
+    cuisine.sudo('wget --quiet -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -')
+    cuisine.package_update()
+    cuisine.package_ensure('postgresql')
+    cuisine.package_ensure('postgresql-server-dev-9.3')
+    role = run('psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname=\'vagrant\'"')
+    if not role:
+        print blue("Create DB user")
+        run('sudo su -c "createuser --createdb --superuser vagrant" postgres')
 
 
 def _extra_packages():
