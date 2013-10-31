@@ -3,3 +3,4 @@ psycopg2
 Pillow==2.0.0
 Werkzeug
 django-extensions
+South

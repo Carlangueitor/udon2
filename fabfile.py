@@ -36,6 +36,25 @@ def _syncdb():
 
 
 @task
+def migrate(app=None):
+    """
+    Run migrations for selected app or all apps.
+    """
+    require('site_dir')
+    with cd(env.site_dir):
+        run("python manage.py migrate {0}".format(app or ''))
+
+
+@task
+def syncdb():
+    """
+    Run syncdb and migrations for all apps.
+    """
+    _syncdb()
+    migrate()
+
+
+@task
 def runserver():
     """
     Run the Django development server.
@@ -43,3 +62,13 @@ def runserver():
     require('site_dir')
     with cd(env.site_dir):
         run("python manage.py runserver_plus 0.0.0.0:8000 --traceback")
+
+
+@task
+def migration(app):
+    """
+    Create schemamigration for selected app.
+    """
+    require('site_dir')
+    with cd(env.site_dir):
+        run("python manage.py schemamigration {0} --auto".format(app))
