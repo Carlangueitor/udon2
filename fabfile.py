@@ -65,10 +65,13 @@ def runserver():
 
 
 @task
-def migration(app):
+def migration(app, intitial=False):
     """
     Create schemamigration for selected app.
     """
     require('site_dir')
     with cd(env.site_dir):
-        run("python manage.py schemamigration {0} --auto".format(app))
+        if intitial:
+            run("python manage.py schemamigration {0} --initial".format(app))
+        else:
+            run("python manage.py schemamigration {0} --auto".format(app))
