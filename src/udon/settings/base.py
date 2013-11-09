@@ -25,7 +25,7 @@ STATIC_ROOT = os.path.join(ROOT, '../..', 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(ROOT, '..', 'assets'),
+    os.path.join(ROOT, '../..', 'assets'),
 )
 
 STATICFILES_FINDERS = (
@@ -53,7 +53,7 @@ ROOT_URLCONF = 'udon.urls'
 WSGI_APPLICATION = 'udon.wsgi.application'
 
 TEMPLATE_DIRS = (
-    os.path.join(ROOT, '..', 'templates'),
+    os.path.join(ROOT, '../..', 'templates'),
 )
 
 INSTALLED_APPS = (
@@ -66,6 +66,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'south',
     'library',
+    'adminpanel',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

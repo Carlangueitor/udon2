@@ -7,7 +7,8 @@
 
     <title>Udon - {% block page_title %}{% endblock %}</title>
 
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    {% load static from staticfiles %}
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -26,6 +27,7 @@
         <h3 class="text-muted">Udon2</h3>
       </div>
       {% block content %}
+      {{ form.as_p}}
       {% endblock %}
       <div class="footer">
         <p>&copy; Udon 2013</p>
